@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/bookings")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin("*")
 public class BookingController {
 
     private final BookingRepository bookingRepository;

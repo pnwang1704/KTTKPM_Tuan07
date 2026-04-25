@@ -17,7 +17,6 @@ import java.util.Map;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin("*")
 public class UserController {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
