@@ -13,7 +13,7 @@ export default function Booking() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { selectedMovie, selectedSeats, status } = useSelector((state) => state.booking);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!selectedMovie) {
@@ -26,12 +26,13 @@ export default function Booking() {
 
   const handleBook = async () => {
     if (selectedSeats.length === 0) return;
-    
+
     dispatch(initiateBooking());
     try {
       const result = await bookingService.createBooking({
+        userId: user ? user.id : 1,
         movieId: selectedMovie.id,
-        seats: selectedSeats
+        seatNumber: selectedSeats.join(', ')
       });
       dispatch(bookingCreated(result.bookingId));
       navigate('/result');
@@ -44,7 +45,7 @@ export default function Booking() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
-      <button 
+      <button
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
       >

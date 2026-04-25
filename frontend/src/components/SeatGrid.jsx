@@ -1,18 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSeat } from '../store/slices/bookingSlice';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { bookingClient } from '../services/apiClient';
 
 const ROWS = ['A', 'B', 'C', 'D', 'E', 'F'];
 const SEATS_PER_ROW = 8;
-// Mock occupied seats
-const OCCUPIED_SEATS = ['C4', 'C5', 'D4', 'D5', 'E1', 'E2', 'F8'];
 
 export default function SeatGrid() {
   const dispatch = useDispatch();
-  const { selectedSeats } = useSelector((state) => state.booking);
+  const { selectedSeats, selectedMovie } = useSelector((state) => state.booking);
+  const [occupiedSeats, setOccupiedSeats] = useState(['C4', 'C5', 'D4', 'D5', 'E1', 'E2', 'F8']);
+
+  useEffect(() => {
+    if (selectedMovie) {
+      bookingClient.get('/bookings')
+        .then(bookings => {
+          const movieBookings = bookings.filter(b => b.movieId === selectedMovie.id && b.status !== 'FAILED');
+          const seats = new Set(['C4', 'C5', 'D4', 'D5', 'E1', 'E2', 'F8']); // Keep mock ones for visual sake + newly booked
+          movieBookings.forEach(b => {
+            if (b.seatNumber) {
+              b.seatNumber.split(',').forEach(s => seats.add(s.trim()));
+            }
+          });
+          setOccupiedSeats(Array.from(seats));
+        })
+        .catch(console.error);
+    }
+  }, [selectedMovie]);
 
   const handleSeatClick = (seatId) => {
-    if (!OCCUPIED_SEATS.includes(seatId)) {
+    if (!occupiedSeats.includes(seatId)) {
       dispatch(toggleSeat(seatId));
     }
   };
@@ -33,11 +51,11 @@ export default function SeatGrid() {
             <div className="flex gap-2 sm:gap-3">
               {Array.from({ length: SEATS_PER_ROW }).map((_, i) => {
                 const seatId = `${row}${i + 1}`;
-                const isOccupied = OCCUPIED_SEATS.includes(seatId);
+                const isOccupied = occupiedSeats.includes(seatId);
                 const isSelected = selectedSeats.includes(seatId);
 
                 let seatClass = "w-8 h-8 sm:w-10 sm:h-10 rounded-t-lg rounded-b-sm cursor-pointer transition-all duration-300 ";
-                
+
                 if (isOccupied) {
                   seatClass += "bg-gray-800 cursor-not-allowed border border-gray-700";
                 } else if (isSelected) {
