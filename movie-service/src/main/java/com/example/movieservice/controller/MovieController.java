@@ -24,4 +24,9 @@ public class MovieController {
     public Movie createMovie(@RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
+
+    @GetMapping("/{id}")
+    public Movie getMovieById(@PathVariable Long id) {
+        return movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found with id: " + id));
+    }
 }

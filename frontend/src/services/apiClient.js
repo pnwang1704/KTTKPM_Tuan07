@@ -1,9 +1,9 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-export const AUTH_URL = 'http://localhost:8081';
-export const MOVIE_URL = 'http://localhost:8082';
-export const BOOKING_URL = 'http://localhost:8083';
+export const AUTH_URL = 'http://172.16.33.142:8081';
+export const MOVIE_URL = 'http://172.16.33.142:8082';
+export const BOOKING_URL = 'http://172.16.40.124:8083';
 
 // We create separate clients for each service port
 export const authClient = axios.create({ baseURL: AUTH_URL });
