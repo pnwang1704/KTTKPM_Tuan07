@@ -18,7 +18,7 @@ export default function Register() {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const user = await authService.register({ name, email, password });
+      const user = await authService.register({ username: name, email, password });
       dispatch(loginSuccess(user));
       navigate('/movies');
     } catch (err) {
@@ -30,8 +30,8 @@ export default function Register() {
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070')] bg-cover bg-center opacity-20 mix-blend-luminosity" />
       <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent" />
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
@@ -52,8 +52,8 @@ export default function Register() {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="relative group">
             <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-accent-blue transition-colors" />
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all"
@@ -64,8 +64,8 @@ export default function Register() {
 
           <div className="relative group">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-accent-blue transition-colors" />
-            <input 
-              type="email" 
+            <input
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all"
@@ -73,11 +73,11 @@ export default function Register() {
               required
             />
           </div>
-          
+
           <div className="relative group">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-accent-blue transition-colors" />
-            <input 
-              type="password" 
+            <input
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue transition-all"
