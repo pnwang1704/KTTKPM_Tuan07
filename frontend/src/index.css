@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary text-white font-sans antialiased selection:bg-accent-gold selection:text-primary;
+    background-image: radial-gradient(circle at 50% -20%, #1a1a1a, #0f0f0f);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl;
+  }
+  .glow-text {
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+  .glow-box {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  }
+}

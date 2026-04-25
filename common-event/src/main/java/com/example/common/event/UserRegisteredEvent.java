@@ -1,0 +1,18 @@
+package com.example.common.event;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
+public class UserRegisteredEvent extends BaseEvent {
+    private Long userId;
+    private String username;
+    private String email;
+}

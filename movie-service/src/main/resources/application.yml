@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: movie-service
+  datasource:
+    url: jdbc:h2:mem:moviedb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 8082
